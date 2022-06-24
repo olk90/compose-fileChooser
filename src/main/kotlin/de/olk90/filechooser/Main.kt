@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import de.olk90.filechooser.actions.FileChooserButton
+import de.olk90.filechooser.view.textFiles
 
 @Composable
 fun App() {
@@ -35,7 +36,7 @@ fun App() {
     }
 
     if (isDialogOpen.value) {
-        FileChooser(isDialogOpen, path)
+        FileChooser(isDialogOpen, path, textFiles)
     }
 }
 

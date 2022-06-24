@@ -7,16 +7,13 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import de.olk90.filechooser.actions.DeleteDirectoryButton
-import de.olk90.filechooser.actions.NewDirectoryButton
-import de.olk90.filechooser.actions.OpenHomeDirectoryButton
-import de.olk90.filechooser.actions.ToggleHiddenFilesButton
-import de.olk90.filechooser.view.ButtonBar
+import de.olk90.filechooser.actions.*
+import de.olk90.filechooser.view.FileFilter
 import de.olk90.filechooser.view.FileList
 import java.io.File
 
 @Composable
-fun FileChooser(isDialogOpen: MutableState<Boolean>, path: MutableState<String>) {
+fun FileChooser(isDialogOpen: MutableState<Boolean>, path: MutableState<String>, filters: List<FileFilter>) {
 
     if (path.value.isEmpty()) {
         path.value = System.getProperty("user.home")
@@ -24,6 +21,7 @@ fun FileChooser(isDialogOpen: MutableState<Boolean>, path: MutableState<String>)
 
     val showHidden = remember { mutableStateOf(false) }
     val directory = remember { mutableStateOf(File(path.value)) }
+    val selectedFilter = remember { mutableStateOf(FileFilter("", "")) }
 
     Column {
         Scaffold(
@@ -53,14 +51,14 @@ fun FileChooser(isDialogOpen: MutableState<Boolean>, path: MutableState<String>)
             content = {
                 Column(verticalArrangement = Arrangement.SpaceBetween) {
                     Row {
-                        Box(Modifier.fillMaxHeight(0.9f)) {
+                        Box(Modifier.fillMaxHeight(0.8f)) {
                             Column(Modifier.fillMaxSize()) {
                                 FileList(directory, showHidden)
                             }
                         }
                     }
                     Row {
-                        ButtonBar(isDialogOpen, directory, path)
+                        ButtonBar(isDialogOpen, directory, path, filters, selectedFilter)
                     }
                 }
             }
