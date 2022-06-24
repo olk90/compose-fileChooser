@@ -1,7 +1,7 @@
 package view
 
-import CancelButton
-import SelectFileButton
+import actions.CancelButton
+import actions.SelectFileButton
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
