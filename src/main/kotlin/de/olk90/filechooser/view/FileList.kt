@@ -1,4 +1,4 @@
-package view
+package de.olk90.filechooser.view
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable

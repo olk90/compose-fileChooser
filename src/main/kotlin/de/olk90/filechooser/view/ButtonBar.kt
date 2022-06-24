@@ -1,13 +1,13 @@
-package view
+package de.olk90.filechooser.view
 
-import actions.CancelButton
-import actions.SelectFileButton
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
+import de.olk90.filechooser.actions.CancelButton
+import de.olk90.filechooser.actions.SelectFileButton
 import java.io.File
 
 @Composable

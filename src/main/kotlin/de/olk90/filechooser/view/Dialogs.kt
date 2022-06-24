@@ -1,7 +1,3 @@
-import actions.DeleteDirectoryButton
-import actions.NewDirectoryButton
-import actions.OpenHomeDirectoryButton
-import actions.ToggleHiddenFilesButton
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -11,8 +7,12 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import view.ButtonBar
-import view.FileList
+import de.olk90.filechooser.actions.DeleteDirectoryButton
+import de.olk90.filechooser.actions.NewDirectoryButton
+import de.olk90.filechooser.actions.OpenHomeDirectoryButton
+import de.olk90.filechooser.actions.ToggleHiddenFilesButton
+import de.olk90.filechooser.view.ButtonBar
+import de.olk90.filechooser.view.FileList
 import java.io.File
 
 @Composable

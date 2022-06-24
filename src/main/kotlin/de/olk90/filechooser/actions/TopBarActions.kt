@@ -1,4 +1,4 @@
-package actions
+package de.olk90.filechooser.actions
 
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
