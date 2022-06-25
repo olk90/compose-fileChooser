@@ -40,7 +40,8 @@ fun FileChooser(isDialogOpen: MutableState<Boolean>, path: MutableState<String>,
                         IconButton(
                             onClick = {
                                 directory.value = directory.value.parentFile
-                            }
+                            },
+                            enabled = directory.value.parentFile != null
                         ) {
                             Icon(
                                 Icons.Filled.ArrowBack,
