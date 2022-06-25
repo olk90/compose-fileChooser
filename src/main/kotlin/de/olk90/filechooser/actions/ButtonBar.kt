@@ -83,6 +83,7 @@ fun FileFilterSelection(
             items.forEachIndexed { index, s ->
                 DropdownMenuItem(onClick = {
                     selectedIndex = index
+                    selectedFilter.value = items[selectedIndex]
                     expanded.value = false
                 }) {
                     Text(text = s.toString())

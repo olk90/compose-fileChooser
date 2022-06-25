@@ -6,10 +6,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import de.olk90.filechooser.actions.*
 import de.olk90.filechooser.view.FileFilter
 import de.olk90.filechooser.view.FileList
+import de.olk90.filechooser.view.defaultFilter
 import java.io.File
 
 @Composable
@@ -21,7 +23,7 @@ fun FileChooser(isDialogOpen: MutableState<Boolean>, path: MutableState<String>,
 
     val showHidden = remember { mutableStateOf(false) }
     val directory = remember { mutableStateOf(File(path.value)) }
-    val selectedFilter = remember { mutableStateOf(FileFilter("", "")) }
+    val selectedFilter = remember { mutableStateOf(defaultFilter) }
 
     Column {
         Scaffold(
@@ -51,13 +53,13 @@ fun FileChooser(isDialogOpen: MutableState<Boolean>, path: MutableState<String>,
             content = {
                 Column(verticalArrangement = Arrangement.SpaceBetween) {
                     Row {
-                        Box(Modifier.fillMaxHeight(0.8f)) {
+                        Box(Modifier.fillMaxHeight(0.85f)) {
                             Column(Modifier.fillMaxSize()) {
-                                FileList(directory, showHidden)
+                                FileList(directory, showHidden, selectedFilter)
                             }
                         }
                     }
-                    Row {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
                         ButtonBar(isDialogOpen, directory, path, filters, selectedFilter)
                     }
                 }
