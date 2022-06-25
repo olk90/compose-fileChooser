@@ -1,3 +1,5 @@
+package de.olk90.filechooser
+
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
@@ -11,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import de.olk90.filechooser.actions.FileChooserButton
+import de.olk90.filechooser.view.FileChooser
 import de.olk90.filechooser.view.textFiles
 
 @Composable

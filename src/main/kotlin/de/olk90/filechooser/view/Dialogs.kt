@@ -1,3 +1,5 @@
+package de.olk90.filechooser.view
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -9,9 +11,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import de.olk90.filechooser.actions.*
-import de.olk90.filechooser.view.FileFilter
-import de.olk90.filechooser.view.FileList
-import de.olk90.filechooser.view.defaultFilter
 import java.io.File
 
 @Composable
