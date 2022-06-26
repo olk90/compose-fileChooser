@@ -9,6 +9,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import de.olk90.filechooser.actions.*
 import java.io.File
 
@@ -18,6 +19,7 @@ fun FileChooser(isDialogOpen: MutableState<Boolean>, path: MutableState<String>,
     if (path.value.isEmpty()) {
         path.value = System.getProperty("user.home")
     }
+
 
     val showHidden = remember { mutableStateOf(false) }
     val directory = remember { mutableStateOf(File(path.value)) }
@@ -52,10 +54,21 @@ fun FileChooser(isDialogOpen: MutableState<Boolean>, path: MutableState<String>,
             content = {
                 Column(verticalArrangement = Arrangement.SpaceBetween) {
                     Row {
+                        Box(Modifier.height(80.dp).fillMaxWidth()) {
+                            TextField(
+                                value = directory.value.path,
+                                label = { Text("Selected Path") },
+                                onValueChange = {
+                                    directory.value = File(it)
+                                },
+                                modifier = Modifier.padding(10.dp).fillMaxSize(),
+                                singleLine = true
+                            )
+                        }
+                    }
+                    Row {
                         Box(Modifier.fillMaxHeight(0.9f)) {
-                            Column(Modifier.fillMaxSize()) {
-                                FileList(directory, showHidden, selectedFilter)
-                            }
+                            FileList(directory, showHidden, selectedFilter)
                         }
                     }
                 }
