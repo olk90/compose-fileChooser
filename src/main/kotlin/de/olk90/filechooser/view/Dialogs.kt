@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import de.olk90.filechooser.actions.*
 import java.io.File
@@ -53,15 +52,17 @@ fun FileChooser(isDialogOpen: MutableState<Boolean>, path: MutableState<String>,
             content = {
                 Column(verticalArrangement = Arrangement.SpaceBetween) {
                     Row {
-                        Box(Modifier.fillMaxHeight(0.85f)) {
+                        Box(Modifier.fillMaxHeight(0.9f)) {
                             Column(Modifier.fillMaxSize()) {
                                 FileList(directory, showHidden, selectedFilter)
                             }
                         }
                     }
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        ButtonBar(isDialogOpen, directory, path, filters, selectedFilter)
-                    }
+                }
+            },
+            bottomBar = {
+                BottomAppBar {
+                    ButtonBar(isDialogOpen, directory, path, filters, selectedFilter)
                 }
             }
         )

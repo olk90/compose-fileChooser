@@ -9,7 +9,6 @@ import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import de.olk90.filechooser.view.FileFilter
 import java.io.File
 
@@ -103,15 +102,13 @@ fun ButtonBar(
     selectedFilter: MutableState<FileFilter>
 ) {
     val expanded = remember { mutableStateOf(false) }
-    Row(Modifier.padding(10.dp)) {
-        Column(Modifier.fillMaxWidth(0.3f)) {
-            FileFilterSelection(filters, selectedFilter, expanded)
-        }
-        Column {
-            Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.End) {
-                SelectFileButton(isDialogOpen, directory, path)
-                CancelButton(isDialogOpen)
-            }
+    Column(Modifier.fillMaxWidth(0.3f)) {
+        FileFilterSelection(filters, selectedFilter, expanded)
+    }
+    Column {
+        Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.End) {
+            SelectFileButton(isDialogOpen, directory, path)
+            CancelButton(isDialogOpen)
         }
     }
 }
