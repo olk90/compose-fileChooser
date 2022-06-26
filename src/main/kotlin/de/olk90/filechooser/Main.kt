@@ -66,7 +66,7 @@ fun App() {
 }
 
 fun main() = application {
-    Window(onCloseRequest = ::exitApplication) {
+    Window(title = "FileChooser Example", onCloseRequest = ::exitApplication) {
         App()
     }
 }

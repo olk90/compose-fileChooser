@@ -33,11 +33,13 @@ fun FileChooser(
     val directory = remember { mutableStateOf(File(path.value)) }
     val selectedFilter = remember { mutableStateOf(defaultFilter) }
 
+    val title = if (mode == FileChooserMode.FILE) "Select File" else "Select Directory"
+
     Column {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text("Select File") },
+                    title = { Text(title) },
                     actions = {
                         NewDirectoryButton()
                         DeleteDirectoryButton()
