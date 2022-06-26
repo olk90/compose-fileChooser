@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import de.olk90.filechooser.view.FileChooserMode
 import de.olk90.filechooser.view.FileFilter
 import java.io.File
 
@@ -45,34 +46,37 @@ fun CancelButton(isDialogOpen: MutableState<Boolean>) {
 fun FileFilterSelection(
     items: List<FileFilter>,
     selectedFilter: MutableState<FileFilter>,
-    expanded: MutableState<Boolean>
+    expanded: MutableState<Boolean>,
+    mode: FileChooserMode
 ) {
     var selectedIndex by remember { mutableStateOf(0) }
     Box(modifier = Modifier.fillMaxSize()) {
-        TextField(
-            value = items[selectedIndex].toString(),
-            onValueChange = {},
-            readOnly = true,
-            modifier = Modifier.fillMaxWidth(),
-            trailingIcon = {
-                IconButton(
-                    onClick = {
-                        expanded.value = true
-                    }) {
-                    if (expanded.value) {
-                        Icon(
-                            Icons.Filled.KeyboardArrowUp,
-                            contentDescription = "Expanded menu"
-                        )
-                    } else {
-                        Icon(
-                            Icons.Filled.KeyboardArrowDown,
-                            contentDescription = "Collapsed menu"
-                        )
+        if (mode == FileChooserMode.FILE) {
+            TextField(
+                value = items[selectedIndex].toString(),
+                onValueChange = {},
+                readOnly = true,
+                modifier = Modifier.fillMaxWidth(),
+                trailingIcon = {
+                    IconButton(
+                        onClick = {
+                            expanded.value = true
+                        }) {
+                        if (expanded.value) {
+                            Icon(
+                                Icons.Filled.KeyboardArrowUp,
+                                contentDescription = "Expanded menu"
+                            )
+                        } else {
+                            Icon(
+                                Icons.Filled.KeyboardArrowDown,
+                                contentDescription = "Collapsed menu"
+                            )
+                        }
                     }
                 }
-            }
-        )
+            )
+        }
 
         DropdownMenu(
             expanded = expanded.value,
@@ -99,11 +103,12 @@ fun ButtonBar(
     directory: MutableState<File>,
     path: MutableState<String>,
     filters: List<FileFilter>,
-    selectedFilter: MutableState<FileFilter>
+    selectedFilter: MutableState<FileFilter>,
+    mode: FileChooserMode
 ) {
     val expanded = remember { mutableStateOf(false) }
     Column(Modifier.fillMaxWidth(0.3f)) {
-        FileFilterSelection(filters, selectedFilter, expanded)
+        FileFilterSelection(filters, selectedFilter, expanded, mode)
     }
     Column {
         Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.End) {

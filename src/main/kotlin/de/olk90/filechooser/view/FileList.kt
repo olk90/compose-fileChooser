@@ -23,10 +23,11 @@ import java.io.File
 fun FileList(
     parentDirectory: MutableState<File>,
     showHidden: MutableState<Boolean>,
-    selectedFilter: MutableState<FileFilter>
+    selectedFilter: MutableState<FileFilter>,
+    mode: FileChooserMode
 ) {
     val scroll = rememberScrollState()
-    FileListBody(scroll, parentDirectory, showHidden, selectedFilter)
+    FileListBody(scroll, parentDirectory, showHidden, selectedFilter, mode)
 }
 
 @Composable
@@ -34,7 +35,8 @@ fun FileListBody(
     scroll: ScrollState,
     parentDirectory: MutableState<File>,
     showHidden: MutableState<Boolean>,
-    selectedFilter: MutableState<FileFilter>
+    selectedFilter: MutableState<FileFilter>,
+    mode: FileChooserMode
 ) {
     val file = parentDirectory.value
     var directoryContent = file.listFiles()
@@ -43,10 +45,14 @@ fun FileListBody(
         if (!showHidden.value) {
             directoryContent = directoryContent.filter { !it.name.startsWith(".") }.toTypedArray()
         }
-        val sf = selectedFilter.value
-        if (defaultFilter != sf) {
-            directoryContent =
-                directoryContent.filter { it.extension == sf.fileExtension || it.isDirectory }.toTypedArray()
+        if (mode == FileChooserMode.FILE) {
+            val sf = selectedFilter.value
+            if (defaultFilter != sf) {
+                directoryContent =
+                    directoryContent.filter { it.extension == sf.fileExtension || it.isDirectory }.toTypedArray()
+            }
+        } else {
+            directoryContent = directoryContent.filter { it.isDirectory }.toTypedArray()
         }
         directoryContent.sortBy { it.name }
     }

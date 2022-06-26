@@ -13,13 +13,21 @@ import androidx.compose.ui.unit.dp
 import de.olk90.filechooser.actions.*
 import java.io.File
 
+enum class FileChooserMode {
+    FILE, DIRECTORY
+}
+
 @Composable
-fun FileChooser(isDialogOpen: MutableState<Boolean>, path: MutableState<String>, filters: List<FileFilter>) {
+fun FileChooser(
+    isDialogOpen: MutableState<Boolean>,
+    path: MutableState<String>,
+    filters: List<FileFilter>,
+    mode: FileChooserMode
+) {
 
     if (path.value.isEmpty()) {
         path.value = System.getProperty("user.home")
     }
-
 
     val showHidden = remember { mutableStateOf(false) }
     val directory = remember { mutableStateOf(File(path.value)) }
@@ -68,14 +76,14 @@ fun FileChooser(isDialogOpen: MutableState<Boolean>, path: MutableState<String>,
                     }
                     Row {
                         Box(Modifier.fillMaxHeight(0.9f)) {
-                            FileList(directory, showHidden, selectedFilter)
+                            FileList(directory, showHidden, selectedFilter, mode)
                         }
                     }
                 }
             },
             bottomBar = {
                 BottomAppBar {
-                    ButtonBar(isDialogOpen, directory, path, filters, selectedFilter)
+                    ButtonBar(isDialogOpen, directory, path, filters, selectedFilter, mode)
                 }
             }
         )

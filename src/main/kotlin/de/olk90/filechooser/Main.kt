@@ -1,5 +1,6 @@
 package de.olk90.filechooser
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
@@ -14,32 +15,53 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import de.olk90.filechooser.actions.FileChooserButton
 import de.olk90.filechooser.view.FileChooser
+import de.olk90.filechooser.view.FileChooserMode
 import de.olk90.filechooser.view.textFiles
 
 @Composable
 fun App() {
 
-    val isDialogOpen = remember { mutableStateOf(false) }
-    val path = remember { mutableStateOf("") }
+    val isFileChooserOpen = remember { mutableStateOf(false) }
+    val isDirectoryChooserOpen = remember { mutableStateOf(false) }
+    val filePath = remember { mutableStateOf("") }
+    val directoryPath = remember { mutableStateOf("") }
 
     MaterialTheme {
-        OutlinedTextField(
-            value = path.value,
-            onValueChange = {
-                path.value = it
-            },
-            label = { Text("Select File") },
-            modifier = Modifier.padding(10.dp).fillMaxWidth(),
-            singleLine = true,
-            trailingIcon = {
-                FileChooserButton(isDialogOpen)
-            }
-        )
+        Column {
+            OutlinedTextField(
+                value = filePath.value,
+                onValueChange = {
+                    filePath.value = it
+                },
+                label = { Text("Select File") },
+                modifier = Modifier.padding(10.dp).fillMaxWidth(),
+                singleLine = true,
+                trailingIcon = {
+                    FileChooserButton(isFileChooserOpen)
+                }
+            )
+
+            OutlinedTextField(
+                value = directoryPath.value,
+                onValueChange = {
+                    directoryPath.value = it
+                },
+                label = { Text("Select Directory") },
+                modifier = Modifier.padding(10.dp).fillMaxWidth(),
+                singleLine = true,
+                trailingIcon = {
+                    FileChooserButton(isDirectoryChooserOpen)
+                }
+            )
+        }
 
     }
 
-    if (isDialogOpen.value) {
-        FileChooser(isDialogOpen, path, textFiles)
+    if (isFileChooserOpen.value) {
+        FileChooser(isFileChooserOpen, filePath, textFiles, FileChooserMode.FILE)
+    }
+    if (isDirectoryChooserOpen.value) {
+        FileChooser(isDirectoryChooserOpen, directoryPath, textFiles, FileChooserMode.DIRECTORY)
     }
 }
 
