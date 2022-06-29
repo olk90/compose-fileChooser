@@ -10,7 +10,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import de.olk90.filechooser.view.FileChooserMode
-import de.olk90.filechooser.view.FileFilter
+import de.olk90.filechooser.view.FileExtensionFilter
 import java.io.File
 
 
@@ -44,8 +44,8 @@ fun CancelButton(isDialogOpen: MutableState<Boolean>) {
 
 @Composable
 fun FileFilterSelection(
-    items: List<FileFilter>,
-    selectedFilter: MutableState<FileFilter>,
+    items: List<FileExtensionFilter>,
+    selectedFilter: MutableState<FileExtensionFilter>,
     expanded: MutableState<Boolean>,
     mode: FileChooserMode
 ) {
@@ -102,8 +102,8 @@ fun ButtonBar(
     isDialogOpen: MutableState<Boolean>,
     directory: MutableState<File>,
     path: MutableState<String>,
-    filters: List<FileFilter>,
-    selectedFilter: MutableState<FileFilter>,
+    filters: List<FileExtensionFilter>,
+    selectedFilter: MutableState<FileExtensionFilter>,
     mode: FileChooserMode
 ) {
     val expanded = remember { mutableStateOf(false) }

@@ -24,8 +24,11 @@ type in a path manually, the navigation of the list will follow automatically.
 The top bar contains the following actions (from left to right):
 
 * **Arrow Back:** navigate to the current directory's parent
-* **Plus:** add new file or directory (not yet implemented)
+* **Plus:** add new file or directory (depending on the `FileChooserMode`)
+  * Button is enabled in all directories with writing access
+  * If the entered parent folders do not exist, they are created
 * **Trashcan:** delete selected file (not yet implemented)
+  * Button is enabled for all directories with writing access, accept the user's home directory 
 * **Home:** Returning to user's home directory
 * **Magnifying Glass:** toggle invisible files and directories (with leading dot in their name)
 

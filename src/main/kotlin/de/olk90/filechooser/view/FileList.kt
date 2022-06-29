@@ -23,7 +23,7 @@ import java.io.File
 fun FileList(
     parentDirectory: MutableState<File>,
     showHidden: MutableState<Boolean>,
-    selectedFilter: MutableState<FileFilter>,
+    selectedFilter: MutableState<FileExtensionFilter>,
     mode: FileChooserMode
 ) {
     val scroll = rememberScrollState()
@@ -35,7 +35,7 @@ fun FileListBody(
     scroll: ScrollState,
     parentDirectory: MutableState<File>,
     showHidden: MutableState<Boolean>,
-    selectedFilter: MutableState<FileFilter>,
+    selectedFilter: MutableState<FileExtensionFilter>,
     mode: FileChooserMode
 ) {
     val file = parentDirectory.value

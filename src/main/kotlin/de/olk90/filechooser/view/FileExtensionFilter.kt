@@ -1,6 +1,6 @@
 package de.olk90.filechooser.view
 
-class FileFilter(
+class FileExtensionFilter(
     val fileExtension: String,
     private val description: String
 ) {
@@ -9,11 +9,11 @@ class FileFilter(
     }
 }
 
-val defaultFilter = FileFilter("*", "All files")
+val defaultFilter = FileExtensionFilter("*", "All files")
 
 val textFiles = listOf(
     defaultFilter,
-    FileFilter("csv", "CSV file"),
-    FileFilter("log", "Log file"),
-    FileFilter("txt", "Text file")
+    FileExtensionFilter("csv", "CSV file"),
+    FileExtensionFilter("log", "Log file"),
+    FileExtensionFilter("txt", "Text file")
 )
