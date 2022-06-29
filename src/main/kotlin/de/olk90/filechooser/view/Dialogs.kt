@@ -112,10 +112,11 @@ fun NewFileDialog(dialogOpen: MutableState<Boolean>, directory: MutableState<Fil
             dialogOpen.value = false
         },
         content = {
-            Column {
+            Box {
                 TextField(
                     modifier = Modifier.fillMaxWidth().padding(10.dp),
                     value = fileName.value,
+                    label = { Text("Enter file name") },
                     onValueChange = { fileName.value = it },
                     trailingIcon = {
                         IconButton(
