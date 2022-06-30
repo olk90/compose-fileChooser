@@ -1,5 +1,6 @@
 package de.olk90.filechooser.actions
 
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
@@ -11,11 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import de.olk90.filechooser.view.DeleteFileDialog
 import de.olk90.filechooser.view.FileChooserMode
 import de.olk90.filechooser.view.NewFileDialog
 import de.olk90.filechooser.view.USER_HOME
 import java.io.File
 
+@ExperimentalMaterialApi
 @Composable
 fun NewDirectoryButton(directory: MutableState<File>, mode: FileChooserMode) {
 
@@ -38,11 +41,15 @@ fun NewDirectoryButton(directory: MutableState<File>, mode: FileChooserMode) {
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun DeleteDirectoryButton(directory: MutableState<File>) {
+
+    val deleteDialogOpen = remember { mutableStateOf(false) }
+
     IconButton(
         onClick = {
-            // TODO
+            deleteDialogOpen.value = true
         },
         enabled = directory.value.canWrite() && directory.value.path != USER_HOME
     ) {
@@ -50,6 +57,10 @@ fun DeleteDirectoryButton(directory: MutableState<File>) {
             Icons.Filled.Delete,
             contentDescription = "Delete directory"
         )
+    }
+
+    if (deleteDialogOpen.value) {
+        DeleteFileDialog(deleteDialogOpen, directory)
     }
 }
 

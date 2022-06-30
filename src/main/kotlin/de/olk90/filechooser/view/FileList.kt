@@ -39,7 +39,7 @@ fun FileListBody(
     mode: FileChooserMode
 ) {
     val file = parentDirectory.value
-    var directoryContent = file.listFiles()
+    var directoryContent = if (file.isDirectory) file.listFiles() else file.parentFile.listFiles()
 
     if (!directoryContent.isNullOrEmpty()) {
         if (!showHidden.value) {
@@ -56,6 +56,7 @@ fun FileListBody(
         }
         directoryContent.sortBy { it.name }
     }
+
     Box(Modifier.fillMaxSize()) {
         Column(Modifier.verticalScroll(scroll).fillMaxSize()) {
             directoryContent?.forEach {
@@ -82,9 +83,7 @@ fun FileCardBody(file: File, parentDirectory: MutableState<File>) {
     val isDir = file.isDirectory
     Row(
         modifier = Modifier.padding(10.dp).fillMaxWidth().clickable {
-            if (isDir) {
-                parentDirectory.value = file
-            }
+            parentDirectory.value = file
         },
         verticalAlignment = Alignment.CenterVertically
     ) {

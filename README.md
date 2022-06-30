@@ -27,7 +27,7 @@ The top bar contains the following actions (from left to right):
 * **Plus:** add new file or directory (depending on the `FileChooserMode`)
   * Button is enabled in all directories with writing access
   * If the entered parent folders do not exist, they are created
-* **Trashcan:** delete selected file (not yet implemented)
+* **Trashcan:** delete selected file
   * Button is enabled for all directories with writing access, accept the user's home directory 
 * **Home:** Returning to user's home directory
 * **Magnifying Glass:** toggle invisible files and directories (with leading dot in their name)
@@ -47,4 +47,26 @@ missing file filter.
 
 ## How to use
 
-**TODO**
+This code snippet is derived from `Main.kt`. To open a file chooser, simply define a 
+`MutableState<Booelean>` and set it `true` (by clicking a button, etc.). 
+
+```kotlin
+@Composable
+fun App() { 
+
+    val isFileChooserOpen = remember { mutableStateOf(false) }
+    val filePath = remember { mutableStateOf("") }
+    val directoryPath = remember { mutableStateOf("") }
+
+    // [...]
+  
+    if (isFileChooserOpen.value) {
+        FileChooser(
+          isFileChooserOpen, // switched to false after terminal operations to close the dialog
+          filePath, // stores the currently selected path. If empty, the user's home directory is used
+          textFiles, // list of FileExtensionFilters (only relevant in FileChooserMode.FILE
+          FileChooserMode.FILE // displays also files, if set to FileChooserMode.DIRECTORY, only directories are shown in the results
+        )
+    }
+}
+```
