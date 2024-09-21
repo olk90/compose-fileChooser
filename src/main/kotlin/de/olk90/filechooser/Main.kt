@@ -3,7 +3,6 @@ package de.olk90.filechooser
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
@@ -66,7 +65,6 @@ fun App() {
     }
 }
 
-@ExperimentalMaterialApi
 fun main() = application {
     Window(title = "FileChooser Example", onCloseRequest = ::exitApplication) {
         App()
