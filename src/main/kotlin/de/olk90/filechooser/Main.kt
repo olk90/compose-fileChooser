@@ -19,7 +19,6 @@ import de.olk90.filechooser.view.FileChooser
 import de.olk90.filechooser.view.FileChooserMode
 import de.olk90.filechooser.view.textFiles
 
-@ExperimentalMaterialApi
 @Composable
 fun App() {
 

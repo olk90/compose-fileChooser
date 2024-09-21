@@ -1,6 +1,5 @@
 package de.olk90.filechooser.actions
 
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
@@ -18,7 +17,6 @@ import de.olk90.filechooser.view.NewFileDialog
 import de.olk90.filechooser.view.USER_HOME
 import java.io.File
 
-@ExperimentalMaterialApi
 @Composable
 fun NewDirectoryButton(directory: MutableState<File>, mode: FileChooserMode) {
 
@@ -41,7 +39,6 @@ fun NewDirectoryButton(directory: MutableState<File>, mode: FileChooserMode) {
     }
 }
 
-@ExperimentalMaterialApi
 @Composable
 fun DeleteDirectoryButton(directory: MutableState<File>) {
 

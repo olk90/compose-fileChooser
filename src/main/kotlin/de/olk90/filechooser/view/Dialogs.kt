@@ -3,7 +3,7 @@ package de.olk90.filechooser.view
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
@@ -24,7 +24,6 @@ enum class FileChooserMode {
 
 val USER_HOME: String = System.getProperty("user.home")
 
-@ExperimentalMaterialApi
 @Composable
 fun FileChooser(
     isDialogOpen: MutableState<Boolean>,
@@ -62,7 +61,7 @@ fun FileChooser(
                             enabled = directory.value.parentFile != null
                         ) {
                             Icon(
-                                Icons.Filled.ArrowBack,
+                                Icons.AutoMirrored.Filled.ArrowBack,
                                 contentDescription = "Go to parent folder"
                             )
                         }
@@ -100,7 +99,6 @@ fun FileChooser(
     }
 }
 
-@ExperimentalMaterialApi
 @Composable
 fun NewFileDialog(dialogOpen: MutableState<Boolean>, directory: MutableState<File>, mode: FileChooserMode) {
     val fileName = remember { mutableStateOf("") }
@@ -144,7 +142,6 @@ fun NewFileDialog(dialogOpen: MutableState<Boolean>, directory: MutableState<Fil
     )
 }
 
-@ExperimentalMaterialApi
 @Composable
 fun DeleteFileDialog(dialogOpen: MutableState<Boolean>, directory: MutableState<File>) {
     val file = directory.value
