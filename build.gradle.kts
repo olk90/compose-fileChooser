@@ -19,6 +19,7 @@ repositories {
 
 dependencies {
     implementation(compose.desktop.currentOs)
+    implementation("androidx.compose.material:material-icons-extended:1.7.3")
 }
 
 tasks.withType<KotlinJvmCompile>().configureEach {

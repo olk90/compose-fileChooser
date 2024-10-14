@@ -8,14 +8,12 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.List
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import de.olk90.filechooser.logic.getFileIcon
 import java.io.File
 
 
@@ -81,23 +79,24 @@ fun FileListItem(file: File, parentDirectory: MutableState<File>) {
 @Composable
 fun FileCardBody(file: File, parentDirectory: MutableState<File>) {
     val isDir = file.isDirectory
+    val icon = getFileIcon(file)
+
     Row(
-        modifier = Modifier.padding(10.dp).fillMaxWidth().clickable {
-            parentDirectory.value = file
-        },
+        modifier = Modifier
+            .padding(10.dp)
+            .fillMaxWidth()
+            .clickable {
+                if (isDir) {
+                    parentDirectory.value = file
+                }
+            },
         verticalAlignment = Alignment.CenterVertically
     ) {
-        if (isDir) {
-            Icon(
-                Icons.Filled.List,
-                contentDescription = "Directory"
-            )
-        } else {
-            Icon(
-                Icons.Filled.Lock,
-                contentDescription = "Single files"
-            )
-        }
+        Icon(
+            icon,
+            contentDescription = if (isDir) "Directory" else "File"
+        )
+        Spacer(modifier = Modifier.width(8.dp))
         Text(file.name)
     }
 }
