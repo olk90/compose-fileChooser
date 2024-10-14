@@ -3,8 +3,8 @@ package de.olk90.filechooser.actions
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
@@ -35,7 +35,7 @@ fun CancelButton(isDialogOpen: MutableState<Boolean>) {
             isDialogOpen.value = false
         }) {
         Icon(
-            Icons.Filled.ExitToApp,
+            Icons.AutoMirrored.Filled.ExitToApp,
             contentDescription = "Cancel selection"
         )
     }
