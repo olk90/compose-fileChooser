@@ -47,10 +47,11 @@ fun FileFilterSelection(
     items: List<FileExtensionFilter>,
     selectedFilter: MutableState<FileExtensionFilter>,
     expanded: MutableState<Boolean>,
-    mode: FileChooserMode
+    mode: FileChooserMode,
+    modifier: Modifier = Modifier.fillMaxSize()
 ) {
     var selectedIndex by remember { mutableStateOf(0) }
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = modifier) {
         if (mode == FileChooserMode.FILE) {
             TextField(
                 value = items[selectedIndex].toString(),

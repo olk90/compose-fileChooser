@@ -38,7 +38,7 @@ fun FileChooser(
 
     val showHidden = remember { mutableStateOf(false) }
     val directory = remember { mutableStateOf(File(path.value)) }
-    val selectedFilter = remember { mutableStateOf(defaultFilter) }
+    val selectedFilter = remember { mutableStateOf(filters[0]) }
 
     val title = if (mode == FileChooserMode.FILE) "Select File" else "Select Directory"
 
@@ -100,21 +100,48 @@ fun FileChooser(
 }
 
 @Composable
-fun NewFileDialog(dialogOpen: MutableState<Boolean>, directory: MutableState<File>, mode: FileChooserMode) {
+fun NewFileDialog(
+    dialogOpen: MutableState<Boolean>,
+    directory: MutableState<File>,
+    filters: List<FileExtensionFilter>,
+    mode: FileChooserMode
+) {
+
     val fileName = remember { mutableStateOf("") }
     val parent = directory.value
     val listFiles = parent.listFiles(FileFilter { it.name == fileName.value })
+
+    val selectedFilter = remember { mutableStateOf(filters[0]) }
+    val expanded = remember { mutableStateOf(false) }
+
     AlertDialog(
         title = { },
         onDismissRequest = { },
-        modifier = Modifier.padding(10.dp).fillMaxWidth().wrapContentHeight(),
+        modifier = Modifier.fillMaxWidth().wrapContentHeight(),
         text = {
-            TextField(
-                modifier = Modifier.fillMaxWidth().padding(10.dp),
-                value = fileName.value,
-                label = { Text("Create new file") },
-                onValueChange = { fileName.value = it }
-            )
+            Row(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min).padding(horizontal = 5.dp)) {
+                TextField(
+                    modifier = Modifier.fillMaxHeight().padding(5.dp).weight(.6f),
+                    value = fileName.value,
+                    label = { Text("Create new file") },
+                    onValueChange = {
+                        val fileExtension = selectedFilter.value.fileExtension
+                        if (it.endsWith(".$fileExtension")) {
+                            fileName.value = it
+                        } else {
+                            fileName.value = "$it.$fileExtension"
+                        }
+                    }
+                )
+                Spacer(modifier = Modifier.width(5.dp))
+                FileFilterSelection(
+                    filters,
+                    selectedFilter,
+                    expanded,
+                    mode,
+                    modifier = Modifier.fillMaxHeight().padding(5.dp).weight(.35f)
+                )
+            }
         },
         confirmButton = {
             IconButton(
