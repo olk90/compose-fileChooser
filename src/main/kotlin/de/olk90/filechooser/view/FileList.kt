@@ -86,9 +86,7 @@ fun FileCardBody(file: File, parentDirectory: MutableState<File>) {
             .padding(10.dp)
             .fillMaxWidth()
             .clickable {
-                if (isDir) {
-                    parentDirectory.value = file
-                }
+                parentDirectory.value = file
             },
         verticalAlignment = Alignment.CenterVertically
     ) {
