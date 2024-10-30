@@ -17,6 +17,7 @@ import de.olk90.filechooser.actions.FileChooserButton
 import de.olk90.filechooser.view.FileChooser
 import de.olk90.filechooser.view.FileChooserMode
 import de.olk90.filechooser.view.textFiles
+import java.io.File
 
 @Composable
 fun App() {
@@ -25,6 +26,14 @@ fun App() {
     val isDirectoryChooserOpen = remember { mutableStateOf(false) }
     val filePath = remember { mutableStateOf("") }
     val directoryPath = remember { mutableStateOf("") }
+
+    val selectFileAction = { file: File ->
+        filePath.value = file.path
+    }
+
+    val selectDirectoryAction = { file: File ->
+        directoryPath.value = file.path
+    }
 
     MaterialTheme {
         Column {
@@ -58,10 +67,10 @@ fun App() {
     }
 
     if (isFileChooserOpen.value) {
-        FileChooser(isFileChooserOpen, filePath, textFiles, FileChooserMode.FILE)
+        FileChooser(isFileChooserOpen, textFiles, FileChooserMode.FILE, selectFileAction)
     }
     if (isDirectoryChooserOpen.value) {
-        FileChooser(isDirectoryChooserOpen, directoryPath, textFiles, FileChooserMode.DIRECTORY)
+        FileChooser(isDirectoryChooserOpen, textFiles, FileChooserMode.DIRECTORY, selectDirectoryAction)
     }
 }
 

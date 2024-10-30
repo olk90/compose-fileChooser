@@ -22,10 +22,11 @@ fun FileList(
     parentDirectory: MutableState<File>,
     showHidden: MutableState<Boolean>,
     selectedFilter: MutableState<FileExtensionFilter>,
-    mode: FileChooserMode
+    mode: FileChooserMode,
+    selectAction: (File) -> Unit
 ) {
     val scroll = rememberScrollState()
-    FileListBody(scroll, parentDirectory, showHidden, selectedFilter, mode)
+    FileListBody(scroll, parentDirectory, showHidden, selectedFilter, mode, selectAction)
 }
 
 @Composable
@@ -34,7 +35,8 @@ fun FileListBody(
     parentDirectory: MutableState<File>,
     showHidden: MutableState<Boolean>,
     selectedFilter: MutableState<FileExtensionFilter>,
-    mode: FileChooserMode
+    mode: FileChooserMode,
+    selectAction: (File) -> Unit
 ) {
     val file = parentDirectory.value
     var directoryContent = if (file.isDirectory) file.listFiles() else file.parentFile.listFiles()
@@ -62,7 +64,7 @@ fun FileListBody(
                     modifier = Modifier.padding(10.dp).fillMaxSize(),
                     contentAlignment = Alignment.CenterStart
                 ) {
-                    FileListItem(it, parentDirectory)
+                    FileListItem(it, selectAction)
                 }
             }
         }
@@ -70,14 +72,14 @@ fun FileListBody(
 }
 
 @Composable
-fun FileListItem(file: File, parentDirectory: MutableState<File>) {
+fun FileListItem(file: File, selectAction: (File) -> Unit) {
     Card {
-        FileCardBody(file, parentDirectory)
+        FileCardBody(file, selectAction)
     }
 }
 
 @Composable
-fun FileCardBody(file: File, parentDirectory: MutableState<File>) {
+fun FileCardBody(file: File, selectAction: (File) -> Unit) {
     val isDir = file.isDirectory
     val icon = getFileIcon(file)
 
@@ -86,7 +88,7 @@ fun FileCardBody(file: File, parentDirectory: MutableState<File>) {
             .padding(10.dp)
             .fillMaxWidth()
             .clickable {
-                parentDirectory.value = file
+                selectAction(file)
             },
         verticalAlignment = Alignment.CenterVertically
     ) {

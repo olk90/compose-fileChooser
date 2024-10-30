@@ -27,18 +27,19 @@ val USER_HOME: String = System.getProperty("user.home")
 @Composable
 fun FileChooser(
     isDialogOpen: MutableState<Boolean>,
-    path: MutableState<String>,
     filters: List<FileExtensionFilter>,
-    mode: FileChooserMode
+    mode: FileChooserMode,
+    selectAction: (File) -> Unit
 ) {
 
-    if (path.value.isEmpty()) {
-        path.value = USER_HOME
-    }
-
     val showHidden = remember { mutableStateOf(false) }
-    val directory = remember { mutableStateOf(File(path.value)) }
+    val directory = remember { mutableStateOf(File(USER_HOME)) }
     val selectedFilter = remember { mutableStateOf(filters[0]) }
+
+    val internalSelectAction = { file: File ->
+        selectAction(file)
+        directory.value = file
+    }
 
     val title = if (mode == FileChooserMode.FILE) "Select File" else "Select Directory"
 
@@ -85,14 +86,14 @@ fun FileChooser(
                     }
                     Row {
                         Box(Modifier.fillMaxHeight(0.9f)) {
-                            FileList(directory, showHidden, selectedFilter, mode)
+                            FileList(directory, showHidden, selectedFilter, mode, internalSelectAction)
                         }
                     }
                 }
             },
             bottomBar = {
                 BottomAppBar {
-                    ButtonBar(isDialogOpen, directory, path, filters, selectedFilter, mode)
+                    ButtonBar(isDialogOpen, directory, filters, selectedFilter, mode, internalSelectAction)
                 }
             }
         )
