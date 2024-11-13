@@ -36,8 +36,7 @@ fun FileChooser(
     val directory = remember { mutableStateOf(File(USER_HOME)) }
     val selectedFilter = remember { mutableStateOf(filters[0]) }
 
-    val internalSelectAction = { file: File ->
-        selectAction(file)
+    val updateDirectory = { file: File ->
         directory.value = file
     }
 
@@ -86,14 +85,14 @@ fun FileChooser(
                     }
                     Row {
                         Box(Modifier.fillMaxHeight(0.9f)) {
-                            FileList(directory, showHidden, selectedFilter, mode, internalSelectAction)
+                            FileList(directory, showHidden, selectedFilter, mode, updateDirectory)
                         }
                     }
                 }
             },
             bottomBar = {
                 BottomAppBar {
-                    ButtonBar(isDialogOpen, directory, filters, selectedFilter, mode, internalSelectAction)
+                    ButtonBar(isDialogOpen, directory, filters, selectedFilter, mode, selectAction)
                 }
             }
         )
